@@ -1,0 +1,83 @@
+version: '3'
+
+services:
+  db:
+    image: shop-service-db:latest
+    build: ./db/
+    container_name: postgres
+    expose:
+      - 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=shop_database
+    restart: always
+    networks:
+      - service-network
+    healthcheck:
+      test: pg_isready -U postgres
+      interval: 20s
+      timeout: 5s
+      retries: 3
+
+  api:
+    image: shop-service:latest
+    build: ./service/
+    shm_size: 1g
+    expose:
+      - 8000
+    volumes:
+      - static_volume:/home/app/web/static
+      - media_volume:/home/app/web/media
+    environment:
+      - API_URL=127.0.0.1
+      - API_PORT=8000
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=shop_database
+    depends_on:
+      - db
+    networks:
+      - service-network
+    healthcheck:
+      test: curl --fail http://localhost:8000 || exit 1
+      interval: 20s
+      timeout: 5s
+      retries: 3
+
+  nginx:
+    image: shop-service-router:latest
+    build: ./nginx/
+    container_name: nginx
+    volumes:
+      - static_volume:/home/app/web/static
+      - media_volume:/home/app/web/media
+    ports:
+      - 80:80
+    depends_on:
+      - api
+    restart: always
+    networks:
+      - service-network
+    healthcheck:
+      test: curl --fail http://localhost:80 || exit 1
+      interval: 20s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+
+networks:
+  service-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.24.0.0/16"
