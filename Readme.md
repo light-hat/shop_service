@@ -36,7 +36,7 @@ ORM: `Django ORM`.
 
 
 
-## Деплой
+## Запуск проекта
 
 Для начала клонируйте репозиторий:
 
@@ -49,8 +49,8 @@ cd shop_service
 
 ### 1. Docker
 
-> [!IMPORTANT]  
-> В системе должен быть установлен Docker и Docker Compose.
+> [!WARNING]  
+> В системе должны быть установлены `Docker` и `Docker Compose`.
 
 ```bash
 docker-compose up -d --build
@@ -58,8 +58,8 @@ docker-compose up -d --build
 
 ### 2. Vagrant
 
-> [!IMPORTANT]  
-> Должен быть установлен Vagrant и VirtualBox.
+> [!WARNING]  
+> Должны быть установлены `Vagrant` и `VirtualBox`.
 
 > [!TIP]
 > Базовый box можно скачать [отсюда](https://portal.cloud.hashicorp.com/vagrant/discover/ubuntu/focal64).
@@ -74,6 +74,9 @@ vagrant up
 ## Управление проектом через Make
 
 Для автоматизации работы с docker-compose предлагается использование утилиты Make.
+
+> [!IMPORTANT]
+> Для этого в системе должен быть установлен `Make`. При развёртывании через Vagrant, make устанавливается на виртуальную машину автоматически.
 
 - Сборка и запуск стека приложений:
 
