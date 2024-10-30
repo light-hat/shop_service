@@ -52,7 +52,7 @@ ORM: `Django ORM`.
 
 - Создание пользователя-администратора автоматизировано с помощью кастомной команды:
 
-```bash
+```shell
 python3 manage.py initdb
 ```
 
@@ -92,7 +92,7 @@ POSTGRES_DB=shop_database
 
 Для начала клонируйте репозиторий:
 
-```bash
+```shell
 git clone https://github.com/light-hat/shop_service
 cd shop_service
 ```
@@ -107,7 +107,7 @@ cd shop_service
 > [!WARNING]  
 > В системе должны быть установлены `Docker` и `Docker Compose`.
 
-```bash
+```shell
 docker-compose up -d --build
 ```
 
@@ -119,7 +119,7 @@ docker-compose up -d --build
 > [!TIP]
 > Базовый box `ubuntu/focal64` можно скачать [отсюда](https://portal.cloud.hashicorp.com/vagrant/discover/ubuntu/focal64).
 
-```bash
+```shell
 vagrant up
 ```
 
@@ -133,37 +133,37 @@ vagrant up
 
 - Сборка и запуск стека приложений:
 
-```bash
+```shell
 make build
 ```
 
 - Запуск ранее собранного стека приложений:
 
-```bash
+```shell
 make up
 ```
 
 - Остановка стека приложений:
 
-```bash
+```shell
 make down
 ```
 
 - Перестроить стек приложений с удалением всех контейнеров и томов:
 
-```bash
+```shell
 make rebuild
 ```
 
 - Очистить все контейнеры, сети и тома:
 
-```bash
+```shell
 make clean
 ```
 
 - Вывести логи:
 
-```bash
+```shell
 make logs
 ```
 
