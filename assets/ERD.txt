@@ -1,0 +1,28 @@
+https://dbdiagram.io/
+
+```
+Table Towns {
+  id integer [primary key]
+  name varchar
+}
+
+Table Streets {
+  id integer [primary key]
+  name varchar
+  town integer
+}
+
+Table Shops {
+  id integer [primary key]
+  name varchar
+  town integer
+  street integer
+  house varchar
+  opening_time datetime
+  closing_time datetime
+}
+
+Ref: Streets.town > Towns.id
+Ref: Shops.town > Towns.id
+Ref: Shops.street > Streets.id
+```

@@ -1,6 +1,16 @@
-version: '3'
+x-healthcheck-timing: &healthcheck-timing
+  interval: 20s
+  timeout: 5s
+  retries: 3
+  start_period: 3s
 
 services:
+  verification:
+    build:
+      context: ./service
+      dockerfile: Dockerfile
+      target: sast
+
   db:
     image: shop-service-db:latest
     build: ./db/
@@ -10,44 +20,45 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=shop_database
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    depends_on:
+      - verification
     restart: always
     networks:
-      - service-network
+      - backend
     healthcheck:
-      test: pg_isready -U postgres
-      interval: 20s
-      timeout: 5s
-      retries: 3
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      <<: *healthcheck-timing
 
   api:
     image: shop-service:latest
-    build: ./service/
+    build:
+      context: ./service
+      dockerfile: Dockerfile
+      target: build
     shm_size: 1g
     expose:
       - 8000
     volumes:
       - static_volume:/home/app/web/static
-      - media_volume:/home/app/web/media
     environment:
-      - API_URL=127.0.0.1
-      - API_PORT=8000
-      - POSTGRES_HOST=db
-      - POSTGRES_PORT=5432
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=shop_database
+      - API_URL
+      - API_PORT
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
     depends_on:
       - db
     networks:
-      - service-network
+      - frontend
+      - backend
     healthcheck:
-      test: curl --fail http://localhost:8000 || exit 1
-      interval: 20s
-      timeout: 5s
-      retries: 3
+      test: ["CMD-SHELL", "curl --fail http://localhost:8000 || exit 1"]
+      <<: *healthcheck-timing
 
   nginx:
     image: shop-service-router:latest
@@ -55,29 +66,29 @@ services:
     container_name: nginx
     volumes:
       - static_volume:/home/app/web/static
-      - media_volume:/home/app/web/media
     ports:
       - 80:80
     depends_on:
       - api
     restart: always
     networks:
-      - service-network
+      - frontend
     healthcheck:
-      test: curl --fail http://localhost:80 || exit 1
-      interval: 20s
-      timeout: 5s
-      retries: 3
+      test: ["CMD-SHELL", "curl --fail http://localhost:80 || exit 1"]
+      <<: *healthcheck-timing
 
 volumes:
   postgres_data:
   static_volume:
-  media_volume:
 
 networks:
-  service-network:
+  frontend:
     driver: bridge
     ipam:
-      driver: default
       config:
-        - subnet: "172.24.0.0/16"
+        - subnet: "172.16.10.0/24"
+  backend:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "192.168.20.0/24"
