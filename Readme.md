@@ -28,32 +28,37 @@ JSON: `http://127.0.0.1/.../`
 
 ORM: `Django ORM`.
 
+## Админка Django
+
+Админка Django доступна по адресу `http://127.0.0.1/admin`
+
 ## Конфигурирование
 
 
 
 ## Деплой
 
-### 1. Ручной вариант
+Для начала клонируйте репозиторий:
 
+```bash
+git clone https://github.com/light-hat/shop_service
+cd shop_service
+```
 
+Далее предлагается два варианта на выбор:
 
-Сервис будет доступен на `localhost:8000`.
+### 1. Docker
 
-### 2. Docker
-
-> [!WARNING]  
+> [!IMPORTANT]  
 > В системе должен быть установлен Docker и Docker Compose.
 
 ```bash
 docker-compose up -d --build
 ```
 
-Сервис будет доступен на `localhost:80`.
+### 2. Vagrant
 
-### 3. Vagrant
-
-> [!WARNING]  
+> [!IMPORTANT]  
 > Должен быть установлен Vagrant и VirtualBox.
 
 > [!TIP]
@@ -63,12 +68,12 @@ docker-compose up -d --build
 vagrant up
 ```
 
-Сервис будет доступен на `localhost:80`.
+> [!NOTE]  
+> Сервис в обоих случаях будет доступен на `127.0.0.1:80`.
 
 ## Управление проектом через Make
 
-> [!IMPORTANT]  
-> Актуально для вариантов деплоя 2 и 3.
+Для автоматизации работы с docker-compose предлагается использование утилиты Make.
 
 - Сборка и запуск стека приложений:
 
