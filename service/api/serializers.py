@@ -14,6 +14,7 @@ class CitySerializer(serializers.ModelSerializer):
     """
 
     class Meta:
+        """Метаданные сериализатора."""
         model = City
         fields = ["id", "name"]
 
@@ -26,6 +27,7 @@ class StreetSerializer(serializers.ModelSerializer):
     city = serializers.SerializerMethodField()
 
     class Meta:
+        """Метаданные сериализатора."""
         model = Street
         fields = ["id", "name", "city"]
 
@@ -46,6 +48,7 @@ class ShopSerializer(serializers.ModelSerializer):
     street = serializers.SerializerMethodField()
 
     class Meta:
+        """Метаданные сериализатора."""
         model = Shop
         fields = [
             "name",
@@ -77,6 +80,7 @@ class ShopCreateSerializer(serializers.ModelSerializer):
     """
 
     class Meta:
+        """Метаданные сериализатора."""
         model = Shop
         fields = [
             "name",
