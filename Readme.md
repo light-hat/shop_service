@@ -1,12 +1,19 @@
-# 🛒 Сервис магазинов
+<h1 align="center"> 🛒 Сервис магазинов </h1>
 
-Тестовое задание на собеседование в Перспективный Мониторинг (дочерняя компания АО ИнфоТеКС).
+<p align="center">
+<a href="https://github.com/light-hat/shop_service/actions"><img alt="Unit test status" src="https://img.shields.io/badge/Python-3.12-3776AB.svg?style=flat&logo=python&logoColor=white"></a>
+<a href="https://github.com/light-hat/shop_service/actions"><img alt="Unit test status" src="https://github.com/light-hat/shop_service/workflows/Unit%20testing/badge.svg"></a>
+<a href="https://github.com/light-hat/shop_service/actions"><img alt="Pylint status" src="https://github.com/light-hat/shop_service/workflows/Pylint/badge.svg"></a>
+<a href="https://github.com/light-hat/shop_service/actions"><img alt="Bandit SAST status" src="https://github.com/light-hat/shop_service/workflows/SAST/badge.svg"></a>
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+</p>
 
 ![Deploy](assets/docker_deploy.gif)
 
-## 🔗 Зависимости
+Тестовое задание на собеседование в Перспективный Мониторинг (дочерняя компания АО ИнфоТеКС).
 
-Версия Python - `3.12`.
+
+## 🔗 Зависимости
 
 | Зависимость         | Версия       |
 |---------------------|--------------|
