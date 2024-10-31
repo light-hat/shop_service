@@ -6,24 +6,24 @@ from rest_framework import viewsets, status, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
-from django.utils.timezone import now
+from django.utils import timezone
 from django.db.models import Case, When, BooleanField
-from .models import Town, Street, Shop
+from .models import City, Street, Shop
 from .serializers import (
-    TownSerializer,
+    CitySerializer,
     StreetSerializer,
     ShopSerializer,
     ShopCreateSerializer,
 )
 
 
-class TownViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+class CityViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     Описывает логику обработки запросов для городов.
     """
 
-    queryset = Town.objects.all()
-    serializer_class = TownSerializer
+    queryset = City.objects.all()
+    serializer_class = CitySerializer
     http_method_names = ["get", "post"]
 
     @extend_schema(
@@ -32,7 +32,7 @@ class TownViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     @action(detail=True, methods=["get"], url_path="street")
     def street_list(self, request, pk=None):
         """Получение списка всех улиц в указанном городе по ID города"""
-        streets = Street.objects.filter(town_id=pk)
+        streets = Street.objects.filter(city_id=pk)
 
         page = self.paginate_queryset(streets)
         if page is not None:
@@ -105,9 +105,9 @@ class ShopViewSet(
 
         city_id = request.query_params.get("city")
         if city_id:
-            queryset = queryset.filter(town_id=city_id)
+            queryset = queryset.filter(city_id=city_id)
 
-        current_time = now().time()
+        current_time = timezone.localtime().time()
         queryset = queryset.annotate(
             is_open=Case(
                 When(

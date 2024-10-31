@@ -5,17 +5,17 @@
 from typing import Optional
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_field
-from .models import Town, Street, Shop
+from .models import City, Street, Shop
 
 
-class TownSerializer(serializers.ModelSerializer):
+class CitySerializer(serializers.ModelSerializer):
     """
     Сериализатор для города.
     """
 
     class Meta:
-        model = Town
-        fields = ["name"]
+        model = City
+        fields = ["id", "name"]
 
 
 class StreetSerializer(serializers.ModelSerializer):
@@ -23,18 +23,18 @@ class StreetSerializer(serializers.ModelSerializer):
     Сериализатор для улицы.
     """
 
-    town = serializers.SerializerMethodField()
+    city = serializers.SerializerMethodField()
 
     class Meta:
         model = Street
-        fields = ["name", "town"]
+        fields = ["id", "name", "city"]
 
     @extend_schema_field(str)
-    def get_town(self, obj) -> Optional[str]:
+    def get_city(self, obj) -> Optional[str]:
         """
         Получение названия города (вместо id).
         """
-        return obj.town.name if obj.town else None
+        return obj.city.name if obj.city else None
 
 
 class ShopSerializer(serializers.ModelSerializer):
@@ -42,14 +42,14 @@ class ShopSerializer(serializers.ModelSerializer):
     Сериализатор для запроса списка магазинов.
     """
 
-    town = serializers.SerializerMethodField()
+    city = serializers.SerializerMethodField()
     street = serializers.SerializerMethodField()
 
     class Meta:
         model = Shop
         fields = [
             "name",
-            "town",
+            "city",
             "street",
             "house",
             "opening_time",
@@ -57,11 +57,11 @@ class ShopSerializer(serializers.ModelSerializer):
         ]
 
     @extend_schema_field(str)
-    def get_town(self, obj) -> Optional[str]:
+    def get_city(self, obj) -> Optional[str]:
         """
         Получение названия города (вместо id).
         """
-        return obj.town.name if obj.town else None
+        return obj.city.name if obj.city else None
 
     @extend_schema_field(str)
     def get_street(self, obj) -> Optional[str]:
@@ -80,7 +80,7 @@ class ShopCreateSerializer(serializers.ModelSerializer):
         model = Shop
         fields = [
             "name",
-            "town",
+            "city",
             "street",
             "house",
             "opening_time",
@@ -88,5 +88,5 @@ class ShopCreateSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {
             "street": {"required": True},
-            "town": {"required": True},
+            "city": {"required": True},
         }

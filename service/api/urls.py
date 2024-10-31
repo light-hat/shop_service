@@ -5,10 +5,10 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from .viewsets import TownViewSet, ShopViewSet
+from .viewsets import CityViewSet, ShopViewSet
 
 router = DefaultRouter()
-router.register(r"city", TownViewSet, basename="city")
+router.register(r"city", CityViewSet, basename="city")
 # router.register(r"street", StreetViewSet, basename="street")
 router.register(r"shop", ShopViewSet, basename="shop")
 
