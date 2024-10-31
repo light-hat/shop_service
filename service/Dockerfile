@@ -28,7 +28,17 @@ RUN pip install pylint pylint-django[with-django]
 
 RUN pylint --load-plugins pylint_django .
 
-FROM pylint AS sast
+FROM pylint AS unittest
+
+RUN pip install pytest-django
+
+RUN python3 manage.py makemigrations --settings=config.unittest --noinput
+
+RUN python3 manage.py migrate --settings=config.unittest --noinput
+
+RUN DJANGO_SETTINGS_MODULE=config.unittest pytest
+
+FROM unittest AS sast
 
 RUN pip install bandit
 

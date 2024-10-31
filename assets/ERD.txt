@@ -1,28 +1,28 @@
 https://dbdiagram.io/
 
 ```
-Table Towns {
+Table City {
   id integer [primary key]
   name varchar
 }
 
-Table Streets {
+Table Street {
   id integer [primary key]
   name varchar
-  town integer
+  city integer
 }
 
-Table Shops {
+Table Shop {
   id integer [primary key]
   name varchar
-  town integer
+  city integer
   street integer
   house varchar
   opening_time datetime
   closing_time datetime
 }
 
-Ref: Streets.town > Towns.id
-Ref: Shops.town > Towns.id
-Ref: Shops.street > Streets.id
+Ref: Street.city > City.id
+Ref: Shop.city > City.id
+Ref: Shop.street > Street.id
 ```

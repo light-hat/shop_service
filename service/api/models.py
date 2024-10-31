@@ -3,6 +3,7 @@
 """
 
 from django.db import models
+from django.utils import timezone
 
 
 class Town(models.Model):
@@ -41,6 +42,15 @@ class Shop(models.Model):
     house = models.CharField(max_length=10, verbose_name="Дом")
     opening_time = models.TimeField(verbose_name="Время открытия")
     closing_time = models.TimeField(verbose_name="Время закрытия")
+
+    def is_open(self):
+        """
+        Проверяет, открыт ли магазин в текущий момент времени.
+        """
+        current_time = timezone.localtime().time()
+        if self.opening_time <= current_time <= self.closing_time:
+            return True
+        return False
 
     def __str__(self):
         return self.name

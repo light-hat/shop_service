@@ -7,6 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 from django.utils.timezone import now
+from django.db.models import Case, When, BooleanField
 from .models import Town, Street, Shop
 from .serializers import (
     TownSerializer,
@@ -102,23 +103,29 @@ class ShopViewSet(
                     status=400,
                 )
 
-        # if street_id:
-        #    queryset = queryset.filter(street_id=street_id)
         city_id = request.query_params.get("city")
         if city_id:
             queryset = queryset.filter(town_id=city_id)
 
+        current_time = now().time()
+        queryset = queryset.annotate(
+            is_open=Case(
+                When(
+                    opening_time__lte=current_time,
+                    closing_time__gte=current_time,
+                    then=True,
+                ),
+                default=False,
+                output_field=BooleanField(),
+            )
+        )
+
         is_open = request.query_params.get("open")
         if is_open is not None:
-            current_time = now().time()
             if is_open == "1":
-                queryset = queryset.filter(
-                    opening_time__lte=current_time, closing_time__gte=current_time
-                )
+                queryset = queryset.filter(is_open=True)
             else:
-                queryset = queryset.exclude(
-                    opening_time__lte=current_time, closing_time__gte=current_time
-                )
+                queryset = queryset.filter(is_open=False)
 
         page = self.paginate_queryset(queryset)
         if page is not None:
