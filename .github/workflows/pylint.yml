@@ -17,5 +17,4 @@ jobs:
         pip install pylint pylint-django[with-django]
     - name: Analysing the code with pylint
       run: |
-        cd service
-        pylint --load-plugins pylint_django .
+        pylint --load-plugins pylint_django ./service/
