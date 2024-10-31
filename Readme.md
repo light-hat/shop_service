@@ -1,4 +1,9 @@
-# Сервис магазинов
+<h1 align="center">Сервис магазинов</h1>
+
+<p align="center">
+<a href="https://github.com/light-hat/shop_service/actions"><img alt="Actions Status" src="https://github.com/light-hat/shop_service/workflows/Test/badge.svg"></a>
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+</p>
 
 ## Зависимости
 
@@ -21,9 +26,7 @@ API задокументирован при помощи Swagger (`drf-spectacul
 
 Тестирование API: `http://127.0.0.1/swagger/`
 
-Документация: `http://127.0.0.1/redoc`
-
-JSON: `http://127.0.0.1/.../`
+YAML: `http://127.0.0.1/schema/`
 
 ## База данных
 

@@ -24,4 +24,12 @@ logs:
 	@echo "Printing logs..."
 	docker-compose logs
 
-.PHONY: build up down rebuild clean logs
+status:
+	@echo "Docker status..."
+	docker ps
+
+black:
+	@echo "Formatting with black..."
+	python3 -m black ./service/
+
+.PHONY: build up down rebuild clean logs status black

@@ -31,6 +31,9 @@ Vagrant.configure("2") do |config|
       sudo chmod +x /usr/local/bin/docker-compose
 
       sudo apt-get install -y make
+      sudo apt-get install -y python3 python3-pip
+
+      pip3 install black
 
       cd /vagrant
       make build
