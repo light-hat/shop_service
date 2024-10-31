@@ -14,7 +14,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pylint
+        pip install pylint pylint-django[with-django]
     - name: Analysing the code with pylint
       run: |
-        pylint $(git ls-files '*.py')
+        cd service
+        pylint --load-plugins pylint_django .

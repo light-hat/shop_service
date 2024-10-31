@@ -111,7 +111,7 @@ cd shop_service
 > [!NOTE]
 > Сервис в обоих случаях будет доступен на `127.0.0.1:80`.
 
-### 🐋 1. Docker 
+### 1. Docker 🐋
 
 > [!WARNING]  
 > В системе должны быть установлены `Docker` и `Docker Compose`.
@@ -120,7 +120,7 @@ cd shop_service
 docker-compose up -d --build
 ```
 
-### ⭕ 2. Vagrant
+### 2. Vagrant ⭕
 
 > [!WARNING]  
 > Должны быть установлены `Vagrant` и `VirtualBox`.
