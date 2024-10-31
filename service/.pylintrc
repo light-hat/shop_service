@@ -2,4 +2,4 @@
 ignore=
     manage.py,unittest.py
 disable=
-    E0401,R0903,E5142,R0901
+    E0401,R0903,E5142,R0901,E5110
