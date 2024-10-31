@@ -1,9 +1,4 @@
-<h1 align="center">Сервис магазинов</h1>
-
-<p align="center">
-<a href="https://github.com/light-hat/shop_service/actions"><img alt="Actions Status" src="https://github.com/light-hat/shop_service/workflows/Test/badge.svg"></a>
-<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
-</p>
+# Сервис магазинов
 
 ## Зависимости
 
@@ -181,26 +176,3 @@ make black
 ```shell
 make status
 ```
-
-## Continuous Integration
-
-С помощью Github Actions для проекта реализован CI/CD-пайплайн, включающий в себя:
-
-- Модульное тестирование с помощью `pytest`;
-- Линтинг с помощью `black`;
-- Линтинг с помощью `pylint`;
-- Поиск секретов репозитория с помощью `trufflehog`;
-- Статический анализ на наличие уязвимостей при помощи `bandit`;
-- Сканирование уязвимостей контейнера через `trivy`.
-
-(продолжение следует...)
-
-## Тестирование
-
-### Модульное тестирование
-
-...
-
-### Интеграционное тестирование
-
-...
