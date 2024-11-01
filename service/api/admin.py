@@ -3,7 +3,8 @@
 """
 
 from django.contrib import admin
-from .models import City, Street, Shop
+
+from .models import City, Shop, Street
 
 admin.site.site_title = "Сервис магазинов"
 admin.site.site_header = "Админка сервиса магазинов"

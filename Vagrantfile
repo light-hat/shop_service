@@ -33,7 +33,7 @@ Vagrant.configure("2") do |config|
       sudo apt-get install -y make
       sudo apt-get install -y python3 python3-pip
 
-      pip3 install black
+      pip3 install black isort
 
       cd /vagrant
       make build

@@ -2,9 +2,10 @@
 Модyль, определяющий доступные url-адреса для сервиса.
 """
 
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from rest_framework.routers import DefaultRouter
+
 from .viewsets import CityViewSet, ShopViewSet
 
 router = DefaultRouter()

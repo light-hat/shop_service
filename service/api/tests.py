@@ -5,9 +5,10 @@
 import pytest
 from rest_framework.exceptions import ValidationError
 from rest_framework.test import APIRequestFactory
-from .viewsets import ShopViewSet
-from .models import City, Street, Shop
+
+from .models import City, Shop, Street
 from .serializers import ShopCreateSerializer
+from .viewsets import ShopViewSet
 
 
 @pytest.mark.django_db

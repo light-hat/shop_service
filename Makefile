@@ -1,15 +1,15 @@
 all:build
 
 build:
-	@echo "Building Smart IDS..."
+	@echo "Building..."
 	docker-compose up -d --build
 
 up:
-	@echo "Starting Smart IDS..."
+	@echo "Starting..."
 	docker-compose up -d
 
 down:
-	@echo "Stopping Smart IDS..."
+	@echo "Stopping..."
 	docker-compose down
 
 rebuild:
@@ -30,6 +30,7 @@ status:
 
 black:
 	@echo "Formatting with black..."
+	isort --apply ./service/
 	python3 -m black ./service/
 
 .PHONY: build up down rebuild clean logs status black

@@ -3,9 +3,11 @@
 """
 
 from typing import Optional
-from rest_framework import serializers
+
 from drf_spectacular.utils import extend_schema_field
-from .models import City, Street, Shop
+from rest_framework import serializers
+
+from .models import City, Shop, Street
 
 
 class CitySerializer(serializers.ModelSerializer):
